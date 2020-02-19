@@ -13,6 +13,7 @@ import utils.tools as tools
 from utils.log import log
 import random
 from config import config
+import json
 
 
 class TaskManager():
@@ -43,7 +44,7 @@ class TaskManager():
     def __get_task_from_redis(self, key):
         task = self._redis.zget(key, is_pop=True)
         if task:
-            task = eval(task[0])
+            task = json.loads((task[0]))
             return task
 
     def __random_int(self, min, max):

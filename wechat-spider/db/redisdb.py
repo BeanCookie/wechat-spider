@@ -9,6 +9,7 @@ Created on 2016-11-16 16:25
 
 from utils.log import log
 import redis
+import json
 
 
 # setting.REDISDB_DB = 0
@@ -157,7 +158,7 @@ class RedisDB():
                 if self._is_redis_cluster:
                     pipe.zadd(table, priority, value)
                 else:
-                    pipe.zadd(table, value, priority)
+                    pipe.zadd(table, {json.dumps(value): priority})
             return pipe.execute()
 
         else:
